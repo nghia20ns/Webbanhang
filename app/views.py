@@ -126,6 +126,7 @@ def checkout(request):
         cartItems = order['get_cart_items']
         user_not_login = "show"
         user_login = "hidden"
+        return redirect("login")
     # Trong hàm checkout
     if request.method == "POST":
         # Lấy dữ liệu từ request.POST
@@ -151,7 +152,6 @@ def checkout(request):
             # Cập nhật trạng thái đơn hàng
             order.complete = True
             order.save()
-
             return redirect('history')
         else:
             # Đơn hàng chưa tồn tại, xử lý như bình thường
@@ -161,7 +161,6 @@ def checkout(request):
                 address=address,
                 mobile=mobile
             )
-
             # Cập nhật trạng thái đơn hàng và transaction_id
             order.complete = True
             order.transaction_id = str(uuid.uuid4())
@@ -216,6 +215,7 @@ def cart(request):
         cartItems = order['get_cart_items']
         user_not_login = "show"
         user_login = "hidden"
+        return redirect("login")
     categories = Category.objects.filter(is_sub = False)
 
     context = {'categories': categories,'items':items, 'order' :order,'cartItems':cartItems,'user_not_login':user_not_login,'user_login':user_login}
