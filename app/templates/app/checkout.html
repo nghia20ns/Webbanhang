@@ -49,12 +49,18 @@
         </div>
 
         <hr />
+        {% if order.get_cart_total == 0 %}
+        <!-- Nếu tổng giỏ hàng bằng 0, không hiển thị nút -->
+        <p>There are no items in the cart.</p>
+        {% else %}
+        <!-- Nếu tổng giỏ hàng khác 0, hiển thị nút -->
         <input
           id="form-button"
           class="btn btn-success btn-block"
           type="submit"
           value="Continue"
         />
+        {% endif %}
       </form>
     </div>
 

@@ -28,6 +28,12 @@
                     {{form.username}}
 
                   </div>
+                  {% for message in messages %}
+                  <p id='message' class="text-center h6 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                    {{message}}
+                  </p>
+                
+                  {% endfor %}
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
@@ -110,4 +116,13 @@
     </div>
   </div>
 </section>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      var messageElement = document.getElementById('message');
+      messageElement.style.display = 'none'; // Ẩn đi nội dung sau 3 giây
+    }, 3000); // 3000 milliseconds = 3 giây
+  });
+</script>
+
 {% endblock register %}

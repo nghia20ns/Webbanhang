@@ -15,5 +15,4 @@ urlpatterns = [
     path('detail/', views.detail, name="detail"),
     path('history/', views.history, name="history"),
     path('history/detailOrder/', views.detailOrder, name="detailOrder"),
-
 ]

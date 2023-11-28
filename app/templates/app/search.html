@@ -7,8 +7,8 @@
 <h5>Resuilt search for {{searched}}</h5>
 <div class="row" style="width: 100%">
   {%for product in keys %}
-  <div class="col-lg-3">
-    <img class="thumbnail" src="{{product.imageUrl}}" />
+  <div class="col-lg-2" style="margin: 20px">
+    <img class="thumbnail" style="width: 100%" src="{{product.imageUrl}}" />
     <div class="box-element product">
       <h6><strong> {{product.name}}</strong></h6>
       <hr />
@@ -20,9 +20,9 @@
         Add Cart
       </button>
       <a class="btn btn-outline-success" href="#">View</a>
-      <h4 style="display: inline-block; float: right">
-        <strong>${{product.price| floatformat:2}}</strong>
-      </h4>
+      <h6 style="display: inline-block; float: right">
+        <strong>${{product.price| floatformat:1}}</strong>
+      </h6>
     </div>
   </div>
   {% endfor %}

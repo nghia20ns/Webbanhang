@@ -120,7 +120,7 @@ def search(request):
 
     if request.method =="POST":
         searched = request.POST["searched"]
-        keys = Product.objects.filter(name__contains = searched)
+        keys = Product.objects.filter(name__icontains=searched)
     return render(request, 'app/search.html' ,{"searched": searched, "keys":keys,'products':products, 'cartItems':cartItems, 'user_not_login':user_not_login,'user_login':user_login,'categories': categories,})
 def register(request):
     form = CreateUserForm()
@@ -129,7 +129,9 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect('login')
-    
+        else: messages.info(request,'The username is overlapped, please re-enter!')
+
+
     user_not_login = "show"
     user_login = "hidden"
     categories = Category.objects.filter(is_sub = False)
