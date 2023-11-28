@@ -6,8 +6,50 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 import uuid
+def detailOrder(request):
+    if request.user.is_authenticated:
+        customer = request.user
+        id = request.GET.get('id','')
+        orderNotSold, created = Order.objects.get_or_create(customer =customer, complete = False)
+        order, created = Order.objects.get_or_create(customer =customer, id = id)
+        items = order.orderitem_set.all()
+        cartItems = orderNotSold.get_cart_items
+        user_not_login = "hidden"
+        user_login = "show"
+
+    else:
+        items = []
+        order = {'get_cart_items':0,'get_cart_total':0}
+        cartItems = order['get_cart_items']
+        user_not_login = "show"
+        user_login = "hidden"
+
+    context = {'items':items, 'order' :order,'cartItems':cartItems,'user_not_login':user_not_login,'user_login':user_login}
+    return render(request, 'app/detailOrder.html', context)
 def history(request):
-    return render(request,"app/history.html")
+    if request.user.is_authenticated:
+        customer = request.user
+        orderNotSold, created = Order.objects.get_or_create(customer =customer, complete = False)
+        orders = Order.objects.filter(customer=customer, complete=True).order_by('-id')
+        all_items = []
+        for order in orders:
+            items = order.shippingaddress_set.all()
+            all_items.extend(items)
+        cartItems = orderNotSold.get_cart_items
+        user_not_login = "hidden"
+        user_login = "show"
+
+    else:
+        items = []
+        order = {'get_cart_items':0,'get_cart_total':0}
+        user_not_login = "show"
+        user_login = "hidden"
+        return redirect("login")
+    categories = Category.objects.filter(is_sub = False)
+
+    context = {'categories': categories,'cartItems':cartItems,'items':all_items, 'orders' :orders,'user_not_login':user_not_login,'user_login':user_login}
+    return render(request, 'app/history.html', context)
+
 def detail(request):
     if request.user.is_authenticated:
         customer = request.user

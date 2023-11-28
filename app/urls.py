@@ -14,5 +14,6 @@ urlpatterns = [
     path('category/', views.category, name="category"),
     path('detail/', views.detail, name="detail"),
     path('history/', views.history, name="history"),
+    path('history/detailOrder/', views.detailOrder, name="detailOrder"),
 
 ]
